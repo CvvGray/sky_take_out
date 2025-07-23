@@ -1,22 +1,22 @@
 package com.sky.dto;
 
+import io.swagger.annotations.Api;
 import lombok.Data;
 
 import java.io.Serializable;
 
 @Data
+@Api("新增员工数据传输dto")
 public class EmployeeDTO implements Serializable {
+    public Integer id;
 
-    private Long id;
+    public String IdNumber;
 
-    private String username;
+    public String name;
 
-    private String name;
+    public String phone;
 
-    private String phone;
+    public String sex;
 
-    private String sex;
-
-    private String idNumber;
-
+    public String username;
 }

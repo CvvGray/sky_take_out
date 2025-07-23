@@ -1,17 +1,22 @@
 package com.sky.service.impl;
 
 import com.sky.constant.MessageConstant;
+import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.context.BaseContext;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
-import com.sky.exception.AccountLockedException;
-import com.sky.exception.AccountNotFoundException;
-import com.sky.exception.PasswordErrorException;
+import com.sky.exception.*;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.service.EmployeeService;
+import com.sky.utils.RegexUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.time.LocalDateTime;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -54,6 +59,60 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //3、返回实体对象
         return employee;
+    }
+
+    /**
+     * 新增员工
+     *
+     * @param employeeDTO
+     * @return
+     */
+    @Override
+    public void addeEployee(EmployeeDTO employeeDTO) {
+        //验证传输的手机格式是否正确
+        String employeePhone = employeeDTO.getPhone();
+        //不正确则抛出异常
+        if(!RegexUtils.isMobileExact(employeePhone)){
+            throw new MobileFormatErrorException(MessageConstant.MOBIL_FORMAT_ERROR);
+        }
+
+        //验证传输的身份证号码格式是否正确
+        String employeeIdNumber = employeeDTO.getIdNumber();
+        //不正确则抛出异常
+        if(!RegexUtils.isMobileExact(employeePhone)){
+            throw new IdNumberFormatErrorException(MessageConstant.ID_Number_FORMAT_ERROR);
+        }
+
+
+        //创建实体对象，以保证插入数据库的信息完整
+        Employee employee = new Employee();
+
+        //对象属性拷贝
+        BeanUtils.copyProperties(employeeDTO,employee);
+
+
+
+        //设置密码为默认密码123456
+        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+
+        //设置账号状态为正常
+        employee.setStatus(StatusConstant.ENABLE);
+
+        //设置创建时间，更新时间
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+
+
+        //设置当前记录创建人id和修改人id
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+
+        //将补充完整的数据插入数据库
+        employeeMapper.addEmployee(employee);
+
+
     }
 
 }
