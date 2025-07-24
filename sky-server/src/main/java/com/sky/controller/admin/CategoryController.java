@@ -1,0 +1,34 @@
+package com.sky.controller.admin;
+
+import com.sky.dto.CategoryDTO;
+import com.sky.result.Result;
+import com.sky.service.CategoryService;
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/admin/category")
+@Slf4j
+@Api(tags = "菜品分类模块")
+public class CategoryController {
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @PostMapping
+    public Result addCategory(@RequestBody CategoryDTO categoryDTO) {
+        log.info("新增菜品，{}",categoryDTO);
+
+
+        return null;
+    }
+
+
+
+}

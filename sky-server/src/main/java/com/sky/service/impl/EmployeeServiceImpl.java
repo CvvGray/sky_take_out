@@ -15,14 +15,12 @@ import com.sky.mapper.EmployeeMapper;
 import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import com.sky.utils.RegexUtils;
-import org.apache.poi.hssf.record.DVALRecord;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -175,7 +173,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployeeInfomation(EmployeeDTO employeeDTO) {
+    public void updateEmployeeInformation(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
 

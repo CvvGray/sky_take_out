@@ -1,7 +1,5 @@
 package com.sky.controller.admin;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.sky.constant.JwtClaimsConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
@@ -147,7 +145,7 @@ public class EmployeeController {
     @ApiOperation("根据ID修改员工信息")
     public Result updataEmployeeById(@RequestBody EmployeeDTO employeeDTO){
         log.info("根据ID修改员工信息,{}",employeeDTO);
-        employeeService.updateEmployeeInfomation(employeeDTO);
+        employeeService.updateEmployeeInformation(employeeDTO);
         return Result.success();
     }
 
