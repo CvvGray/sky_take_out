@@ -89,4 +89,17 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     }
+
+    /**
+     *
+     * @description:根据id删除分类
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:25
+     * @param: [id]
+     * @return: void
+     */
+    @Override
+    public void deleteCategoryById(Long id) {
+        categoryMapper.deleteCategoryById(id);
+    }
 }

@@ -83,5 +83,21 @@ public class CategoryController {
 
     }
 
+    /**
+     *
+     * @description:根据id删除分类
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:23
+     * @param: [id]
+     * @return: com.sky.result.Result
+     */
+    @DeleteMapping
+    @ApiOperation("删除分类")
+    public Result deleteCategoryById(Long id) {
+        log.info("删除分类，{}",id);
+        categoryService.deleteCategoryById(id);
+        return Result.success();
+    }
+
 
 }

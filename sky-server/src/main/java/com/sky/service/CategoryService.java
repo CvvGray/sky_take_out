@@ -39,4 +39,14 @@ public interface CategoryService {
      * @return: void
      */
     void updateCategoryStatus(Integer status, Long id);
+
+    /**
+     *
+     * @description:根据id删除分类
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:24
+     * @param: [id]
+     * @return: void
+     */
+   void deleteCategoryById(Long id);
 }
