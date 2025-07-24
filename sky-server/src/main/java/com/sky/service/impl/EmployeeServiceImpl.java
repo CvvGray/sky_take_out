@@ -141,4 +141,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 
+    /**
+     * 修改员工账号状态
+     *
+     * @param status,id
+     * @return
+     */
+    public void updateEmployeeStatus(Integer status, Long id){
+
+        Employee employee = Employee.builder()
+                            .status(status)
+                            .id(id)
+                            .build();
+
+        employeeMapper.updateEmployeeStatus(employee);
+
+    }
+
+
 }

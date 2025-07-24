@@ -31,5 +31,6 @@ public interface EmployeeService {
      * @return
      */
     PageResult pageQueryEmployee(EmployeePageQueryDTO employeePageQueryDTO);
-     
+
+    void updateEmployeeStatus(Integer status, Long id);
 }

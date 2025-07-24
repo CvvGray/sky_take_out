@@ -31,5 +31,21 @@ public interface EmployeeMapper {
     void addEmployee(Employee employee);
 
 
+
+    /**
+     * 员工分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
     Page<Employee> pageQueryEmployee(EmployeePageQueryDTO employeePageQueryDTO);
+
+
+
+
+    /**
+     * 修改员工账号状态
+     * @param employee
+     * @return
+     */
+    void updateEmployeeStatus(Employee employee);
 }
