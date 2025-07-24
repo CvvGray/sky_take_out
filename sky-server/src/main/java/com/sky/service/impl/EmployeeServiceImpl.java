@@ -152,6 +152,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = Employee.builder()
                             .status(status)
                             .id(id)
+                            .updateTime(LocalDateTime.now())
+                            .updateUser(BaseContext.getCurrentId())
                             .build();
 
         employeeMapper.updateEmployeeInformation(employee);
@@ -172,6 +174,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /**
+     *
+     * @description:根据id修改员工信息
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:12
+     * @param: [employeeDTO]
+     * @return: void
+     */
     @Override
     public void updateEmployeeInformation(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();

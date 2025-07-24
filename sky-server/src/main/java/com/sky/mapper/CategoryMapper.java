@@ -23,7 +23,7 @@ public interface CategoryMapper {
             "(#{type},#{name},#{sort},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})")
     void addCategory(Category category);
 
-    
+
     /**
      *
      * @description:分类分页查询
@@ -32,5 +32,16 @@ public interface CategoryMapper {
      * @param: [categoryPageQueryDTO]
      * @return: com.github.pagehelper.Page
      */
-    Page pageQueryCategory(CategoryPageQueryDTO categoryPageQueryDTO);
+    Page<Category> pageQueryCategory(CategoryPageQueryDTO categoryPageQueryDTO);
+
+
+    /**
+     *
+     * @description:修改分类状态
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:13
+     * @param: [category]
+     * @return: void
+     */
+    void updateCategoryStatus(Category category);
 }

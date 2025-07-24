@@ -44,7 +44,17 @@ public class CategoryController {
     }
 
 
+
+    /**
+     *
+     * @description:分类分页查询
+     * @author: Cvvvv
+     * @date: 2025/7/24 20:38
+     * @param: [categoryPageQueryDTO]
+     * @return: com.sky.result.Result<com.sky.result.PageResult>
+     */
     @GetMapping("/page")
+    @ApiOperation("分类分页查询")
     public Result<PageResult> pageQueryCategory(CategoryPageQueryDTO categoryPageQueryDTO) {
 
         log.info("分类分页查询，{}",categoryPageQueryDTO);
@@ -53,6 +63,25 @@ public class CategoryController {
         return Result.success(pageResult);
     }
 
+
+
+    /**
+     *
+     * @description:修改分类状态
+     * @author: Cvvvv
+     * @date: 2025/7/24 20:42
+     * @param: [status, id]
+     * @return: com.sky.result.Result
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("修改分类状态")
+    public Result updateCategoryStatus(@PathVariable("status") Integer status, Long id) {
+        log.info("修改分类状态，{}，{}",status,id);
+        categoryService.updateCategoryStatus(status,id);
+
+        return Result.success();
+
+    }
 
 
 }

@@ -28,4 +28,15 @@ public interface CategoryService {
      * @return: com.sky.result.PageResult
      */
     PageResult pageQueryCategory(CategoryPageQueryDTO categoryPageQueryDTO);
+
+
+    /**
+     *
+     * @description:修改分类状态
+     * @author: Cvvvv
+     * @date: 2025/7/24 20:43
+     * @param: [status, id]
+     * @return: void
+     */
+    void updateCategoryStatus(Integer status, Long id);
 }

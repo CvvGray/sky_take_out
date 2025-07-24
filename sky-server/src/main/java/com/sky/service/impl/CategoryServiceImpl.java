@@ -67,4 +67,26 @@ public class CategoryServiceImpl implements CategoryService {
 
         return new PageResult(total,results);
     }
+
+    /**
+     *
+     * @description:修改分类状态
+     * @author: Cvvvv
+     * @date: 2025/7/24 20:44
+     * @param: [status, id]
+     * @return: void
+     */
+    @Override
+    public void updateCategoryStatus(Integer status, Long id) {
+        Category category = Category.builder()
+                .status(status)
+                .id(id)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+
+        categoryMapper.updateCategoryStatus(category);
+
+
+    }
 }
