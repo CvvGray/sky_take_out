@@ -24,9 +24,9 @@ public class CategoryController {
     @PostMapping
     public Result addCategory(@RequestBody CategoryDTO categoryDTO) {
         log.info("新增菜品，{}",categoryDTO);
+        categoryService.addCategory(categoryDTO);
 
-
-        return null;
+        return Result.success();
     }
 
 
