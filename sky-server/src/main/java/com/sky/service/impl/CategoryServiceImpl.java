@@ -1,16 +1,21 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
+import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import com.sky.mapper.CategoryMapper;
+import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -43,5 +48,23 @@ public class CategoryServiceImpl implements CategoryService {
         categoryMapper.addCategory(category);
 
 
+    }
+
+    /**
+     *
+     * @description:分类分页查询
+     * @author: Cvvvv
+     * @date: 2025/7/24 17:24
+     * @param: [categoryPageQueryDTO]
+     * @return: com.sky.result.PageResult
+     */
+    @Override
+    public PageResult pageQueryCategory(CategoryPageQueryDTO categoryPageQueryDTO) {
+        PageHelper.startPage(categoryPageQueryDTO.getPage(), categoryPageQueryDTO.getPageSize());
+        Page page = categoryMapper.pageQueryCategory(categoryPageQueryDTO);
+        long total = page.getTotal();
+        List results = page.getResult();
+
+        return new PageResult(total,results);
     }
 }
