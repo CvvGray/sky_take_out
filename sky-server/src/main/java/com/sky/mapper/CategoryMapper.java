@@ -44,7 +44,7 @@ public interface CategoryMapper {
      * @param: [category]
      * @return: void
      */
-    void updateCategoryStatus(Category category);
+    void updateCategoryInformation(Category category);
 
 
     /**

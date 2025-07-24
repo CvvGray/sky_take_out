@@ -100,4 +100,22 @@ public class CategoryController {
     }
 
 
+    /**
+     *
+     * @description:根据id修改分类
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:32
+     * @param: [categoryDTO]
+     * @return: com.sky.result.Result
+     */
+    @PutMapping
+    @ApiOperation("修改分类信息")
+    public Result updateCategoryInformation(@RequestBody CategoryDTO categoryDTO) {
+        log.info("修改分类信息{}",categoryDTO);
+        categoryService.updateCategoryInformation(categoryDTO);
+        return Result.success();
+
+    }
+
+
 }

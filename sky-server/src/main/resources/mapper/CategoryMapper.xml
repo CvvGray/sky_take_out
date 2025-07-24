@@ -19,7 +19,7 @@
     </select>
 
     <!--修改分类信息-->
-    <update id="updateCategoryStatus" parameterType="Category">
+    <update id="updateCategoryInformation" parameterType="Category">
         update category
         <set>
             <if test="type != null">type=#{type},</if>

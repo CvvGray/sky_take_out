@@ -49,4 +49,14 @@ public interface CategoryService {
      * @return: void
      */
    void deleteCategoryById(Long id);
+
+   /**
+    *
+    * @description:根据id修改分类信息
+    * @author: Cvvvv
+    * @date: 2025/7/24 21:33
+    * @param: [categoryDTO]
+    * @return: void
+    */
+   void updateCategoryInformation(CategoryDTO categoryDTO);
 }

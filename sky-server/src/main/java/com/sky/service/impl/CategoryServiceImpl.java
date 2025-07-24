@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .updateUser(BaseContext.getCurrentId())
                 .build();
 
-        categoryMapper.updateCategoryStatus(category);
+        categoryMapper.updateCategoryInformation(category);
 
 
     }
@@ -101,5 +101,25 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteCategoryById(Long id) {
         categoryMapper.deleteCategoryById(id);
+    }
+
+    /**
+     *
+     * @description:根据id修改分类信息
+     * @author: Cvvvv
+     * @date: 2025/7/24 21:33
+     * @param: [categoryDTO]
+     * @return: void
+     */
+    @Override
+    public void updateCategoryInformation(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO, category);
+        category.setStatus(StatusConstant.DISABLE);
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId());
+
+        categoryMapper.updateCategoryInformation(category);
+
     }
 }
