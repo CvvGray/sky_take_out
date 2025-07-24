@@ -123,4 +123,32 @@ public class EmployeeController {
     }
 
 
+    /**
+     * 根据id查询员工信息
+     * @param   id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据ID查询员工信息")
+    public Result<Employee> queryEmployeeById(@PathVariable Long id){
+        log.info("根据ID查询员工信息,{}",id);
+        Employee employee = employeeService.queryEmployeeById(id);
+        return Result.success(employee);
+    }
+
+    /**
+     * 根据id修改员工信息
+     * @param   employeeDTO
+     * @return
+     */
+
+    //TODO 因为前端传输的id为null,暂时使用身份证代替，后买你记得修改xml文件
+    @PutMapping
+    @ApiOperation("根据ID修改员工信息")
+    public Result updataEmployeeById(@RequestBody EmployeeDTO employeeDTO){
+        log.info("根据ID修改员工信息,{}",employeeDTO);
+        employeeService.updateEmployeeInfomation(employeeDTO);
+        return Result.success();
+    }
+
 }

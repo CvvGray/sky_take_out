@@ -6,17 +6,19 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@Api("新增员工数据传输dto")
+@Api("新增员工数据传输DTO")
 public class EmployeeDTO implements Serializable {
-    public Integer id;
 
-    public String IdNumber;
+    private Long id;
 
-    public String name;
+    private String username;
 
-    public String phone;
+    private String name;
 
-    public String sex;
+    private String phone;
 
-    public String username;
+    private String sex;
+
+    private String idNumber;
+
 }
