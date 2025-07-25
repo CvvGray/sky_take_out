@@ -103,15 +103,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         //设置账号状态为正常
         employee.setStatus(StatusConstant.ENABLE);
 
-        //设置创建时间，更新时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        //以下注释代码已经被自动填充代替
 
-
-
-        //设置当前记录创建人id和修改人id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        //设置创建时间，更新时间
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//
+//
+//
+//        //设置当前记录创建人id和修改人id
+//        employee.setCreateUser(BaseContext.getCurrentId());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
 
         //将补充完整的数据插入数据库
@@ -152,8 +154,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = Employee.builder()
                             .status(status)
                             .id(id)
-                            .updateTime(LocalDateTime.now())
-                            .updateUser(BaseContext.getCurrentId())
+//                            .updateTime(LocalDateTime.now())
+//                            .updateUser(BaseContext.getCurrentId())
                             .build();
 
         employeeMapper.updateEmployeeInformation(employee);
@@ -187,8 +189,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
 
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.updateEmployeeInformation(employee);
     }
