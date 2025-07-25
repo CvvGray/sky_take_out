@@ -6,3 +6,7 @@ sky:
     database: sky_take_out
     username: root
     password: 123456
+
+#图片存储路径，使用绝对路径
+image:
+  base-image-path: D:/dev/code/sky-take-out/sky-server/src/main/resources/images/
