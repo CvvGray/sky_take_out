@@ -77,6 +77,7 @@ public class CommonController {
 
         // 可以根据实际情况调整返回的文件访问链接
         String fileUrl = "http://localhost:8080/static/" + originalFilename;
+        log.warn(fileUrl);
         return Result.success(fileUrl);
     }
 }

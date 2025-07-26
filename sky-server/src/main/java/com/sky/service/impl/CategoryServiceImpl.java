@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -109,5 +110,24 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryMapper.updateCategoryInformation(category);
 
+    }
+
+
+    /**
+     *
+     * @description:根据类型查询分类
+     * @author: Cvvvv
+     * @date: 2025/7/26 10:09
+     * @param: [type]
+     * @return: java.util.List<com.sky.entity.Category>
+     */
+    @Override
+    public List<Category> queryCategoryByType(Integer type) {
+        CategoryPageQueryDTO categoryPageQueryDTO = new CategoryPageQueryDTO();
+        categoryPageQueryDTO.setType(type);
+        Page<Category> categories = categoryMapper.pageQueryCategory(categoryPageQueryDTO);
+        List<Category> categoriesList = categories.getResult();
+
+        return categoriesList;
     }
 }

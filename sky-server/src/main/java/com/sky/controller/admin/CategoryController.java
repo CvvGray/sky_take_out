@@ -2,6 +2,7 @@ package com.sky.controller.admin;
 
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
@@ -23,8 +24,6 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private ProjectInfoAutoConfiguration projectInfoAutoConfiguration;
 
     /**
      *
@@ -115,6 +114,21 @@ public class CategoryController {
         categoryService.updateCategoryInformation(categoryDTO);
         return Result.success();
 
+    }
+
+   /**
+    *
+    * @description:根据类型查询分类
+    * @author: Cvvvv 
+    * @date: 2025/7/26 10:08
+    * @param: [type]
+    * @return: com.sky.result.Result<java.util.List<com.sky.entity.Category>>
+    */
+    @GetMapping("/list")
+    @ApiOperation("根据类型查询分类")
+    public Result<List<Category>> list(Integer type){
+        List<Category> list = categoryService.queryCategoryByType(type);
+        return Result.success(list);
     }
 
 
