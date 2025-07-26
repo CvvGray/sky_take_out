@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.SetmealDishMapper">
+
+
+    <select id="querySetmealByDishIds" resultType="com.sky.entity.SetmealDish">
+        select s.setmeal_id,d.name
+        from setmeal_dish s
+        join dish d
+        on d.id = s.dish_id
+        where d.id in
+        <foreach collection="dishIds" item="dishIs" separator="," open="(" close=")">
+            #{dishIs}
+        </foreach>
+    </select>
+</mapper>
