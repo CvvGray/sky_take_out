@@ -32,7 +32,7 @@
     </select>
 
     <!--修改菜品状态-->
-    <update id="updateDishStatus" parameterType="Dish">
+    <update id="updateDishInformation" parameterType="Dish">
         update dish
         <set>
             <if test="name != null and name !='' ">name = #{name},</if>
@@ -46,6 +46,7 @@
         </set>
         where id = #{id}
     </update>
+
 
     <!--根据多个菜品id查询，菜品的状态-->
     <select id="queryDishByids" resultType="com.sky.entity.Dish">

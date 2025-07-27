@@ -3,6 +3,7 @@ package com.sky.controller.admin;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
+import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
@@ -24,7 +25,8 @@ public class DishController {
 
     @Autowired
     private DishService dishService;
-
+    @Autowired
+    private DishMapper dishMapper;
 
 
     /**
@@ -92,6 +94,32 @@ public class DishController {
     public Result deleteDishAndFlavor(@RequestParam List<Long> ids) {
         log.info("需要删除的菜品有：{}",ids);
         dishService.deleteDishAndFlavor(ids);
+        return Result.success();
+    }
+
+    /**
+     *
+     * @description:根据菜品id查询菜品及其口味相关数据
+     * @author: Cvvvv
+     * @param: [id]
+     * @return: com.sky.result.Result<com.sky.vo.DishVO>
+     */
+    @GetMapping("/{id}")
+    public Result<DishVO> queryDishAndFlavorByDishId(@PathVariable Long id){
+        log.info("根据菜品id:({})查询菜品及其口味相关数据",id);
+        DishVO dishVO = dishService.queryDishAndFlavorByDishId(id);
+        return Result.success(dishVO);
+
+    }
+
+
+
+    @PutMapping
+    @ApiOperation("修改菜品信息")
+    public Result updateDishInformation(@RequestBody DishDTO dishDTO){
+        log.info("修改菜品信息{}",dishDTO.toString());
+        dishService.updateDishInformation(dishDTO);
+
         return Result.success();
     }
 

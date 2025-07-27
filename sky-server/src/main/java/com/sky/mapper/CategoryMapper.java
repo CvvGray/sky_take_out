@@ -8,6 +8,7 @@ import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 
 @Mapper
@@ -61,4 +62,14 @@ public interface CategoryMapper {
      */
     @Delete("delete from category where id=#{id}")
     void deleteCategoryById(Long id);
+
+    /**
+     *
+     * @description:根据id查询分类信息
+     * @author: Cvvvv
+     * @param: [categoryId]
+     * @return: com.sky.entity.Category
+     */
+    @Select("select id,type,name,sort,status,create_time,update_time,create_user,update_user from category where id=#{categoryId}")
+    Category queryCategoryById(Long categoryId);
 }
