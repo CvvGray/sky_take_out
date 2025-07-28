@@ -74,7 +74,7 @@ public class CategoryController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("修改分类状态")
-    public Result updateCategoryStatus(@PathVariable("status") Integer status, Long id) {
+    public Result updateCategoryStatus(@PathVariable("status")Integer status, Long id) {
         log.info("修改分类状态，{}，{}",status,id);
         categoryService.updateCategoryStatus(status,id);
 
