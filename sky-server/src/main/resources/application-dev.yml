@@ -10,6 +10,9 @@ sky:
     host: 192.168.140.163
     port: 6379
     database: 0
+  wechat:
+    appid: wx4f20c9668bfaa259
+    secret: 8695f33f7ec9409c00f8df8fcf1e5be2
 
 
 #图片存储路径，使用绝对路径
