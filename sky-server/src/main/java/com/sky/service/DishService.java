@@ -66,4 +66,13 @@ public interface DishService {
      * @return: void
      */
     void updateDishInformation(DishDTO dishDTO);
+
+    /**
+     *
+     * @description: 根据分类id查询查询菜品
+     * @author: Cvvvv
+     * @param: [categoryId]
+     * @return: java.util.List<com.sky.vo.DishVO>
+     */
+    List<DishVO> queryDishByCategoryId(Long categoryId);
 }

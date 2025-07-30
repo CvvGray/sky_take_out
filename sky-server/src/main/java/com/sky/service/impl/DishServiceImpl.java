@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -201,5 +202,26 @@ public class DishServiceImpl implements DishService {
             //向口味表插入n条数据
             dishFlavorMapper.addFlavorForDish(flavors);
         }
+    }
+
+
+    /**
+     *
+     * @description:根据分类id查询查询菜品
+     * @author: Cvvvv
+     * @param: [categoryId]
+     * @return: java.util.List<com.sky.vo.DishVO>
+     */
+    @Override
+    public List<DishVO> queryDishByCategoryId(Long categoryId) {
+        DishPageQueryDTO queryDTO = new DishPageQueryDTO();
+        queryDTO.setCategoryId(categoryId);
+        List<DishVO> dishVOList =  dishMapper.pageQueryDish(queryDTO);
+        for (DishVO dishVO : dishVOList) {
+            List<DishFlavor> dishFlavors =  dishFlavorMapper.queryFlavorByDishId(dishVO.getId());
+            dishVO.setFlavors(dishFlavors);
+        }
+
+        return dishVOList;
     }
 }

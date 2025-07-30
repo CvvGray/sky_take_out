@@ -65,4 +65,18 @@ public class UserController {
 
 
 
+    /**
+     *
+     * @description:用户登出
+     * @author: Cvvvv
+     * @param: []
+     * @return: com.sky.result.Result
+     */
+    @PostMapping("/logout")
+    @ApiOperation("用户登出")
+    public Result userLogout(){
+        return Result.success();
+    }
+
+
 }
