@@ -7,9 +7,9 @@
         select id,name,price,status,category_id,image,description,create_time,create_user,update_time,update_user
         from setmeal
         <where>
-            <if test="id != null">and id = #{id},</if>
-            <if test="name != null and name!=''">and name = #{name},</if>
-            <if test="status != null">and status = #{status},</if>
+            <if test="id != null">and id = #{id}</if>
+            <if test="name != null and name!=''">and name = #{name}</if>
+            <if test="status != null">and status = #{status}</if>
             <if test="categoryId != null">and category_id = #{categoryId}</if>
         </where>
     </select>
