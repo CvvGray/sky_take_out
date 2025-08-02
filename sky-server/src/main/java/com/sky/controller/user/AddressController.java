@@ -109,6 +109,21 @@ public class AddressController {
     }
 
 
+    /**
+     *
+     * @description:查询默认地址
+     * @author: Cvvvv
+     * @param: []
+     * @return: com.sky.result.Result<com.sky.entity.AddressBook>
+     */
+    @GetMapping("/default")
+    @ApiOperation("查询默认地址")
+    public Result<AddressBook> showDefaultAddress() {
+        log.info("查询当前默认地址");
+        AddressBook addressBook = addressBookService.showDefaultAddress();
+        return Result.success(addressBook);
+    }
+
 
 
 

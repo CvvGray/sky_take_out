@@ -2,6 +2,7 @@ package com.sky.controller.user;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.sky.service.OrderService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/notify")
 @Slf4j
+@Api(tags = "支付功功能接口")
 public class PayNotifyController {
     @Autowired
     private OrderService orderService;

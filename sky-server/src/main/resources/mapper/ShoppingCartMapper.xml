@@ -4,6 +4,14 @@
 <mapper namespace="com.sky.mapper.ShoppingCartMapper">
 
 
+
+    <!--删除购物车中的数据-->
+    <delete id="deleteShoppingCart">
+        delete from shopping_cart where user_id = #{userId}
+        <if test="id !=null">and id = #{id}</if>
+    </delete>
+
+
     <!--查询购物车中的数据-->
     <select id="queryShoppingCartDishOrSetmeal" resultType="com.sky.entity.ShoppingCart">
         select id,name,image,user_id,dish_id,setmeal_id,dish_flavor,number,amount,create_time from shopping_cart
@@ -15,4 +23,15 @@
         </where>
         order by create_time desc
     </select>
+
+
+    <!--批量添加购物车的数据-->
+    <insert id="insertBatch">
+        insert into shopping_cart(name, image, user_id, dish_id, setmeal_id, dish_flavor, amount, create_time)
+        values
+            <foreach collection="shoppingCartList" item="shoppingCart" separator=",">
+                (#{shoppingCart.name},#{shoppingCart.image},#{shoppingCart.userId},#{shoppingCart.dishId},#{shoppingCart.setmealId},#{shoppingCart.dishFlavor},#{shoppingCart.amount},#{shoppingCart.createTime})
+            </foreach>
+    </insert>
+
 </mapper>

@@ -119,4 +119,17 @@ public class AddressBookServiceImpl implements AddressBookService {
     public void deleteAddressBookById(Long id) {
         addressBookMapper.deleteAddressBookById(id);
     }
+
+    /**
+     *
+     * @description:查询默认地址
+     * @author: Cvvvv
+     * @param: []
+     * @return: com.sky.entity.AddressBook
+     */
+    @Override
+    public AddressBook showDefaultAddress() {
+        AddressBook addressBook = addressBookMapper.queryDefaultAddress(BaseContext.getCurrentId());
+        return addressBook;
+    }
 }

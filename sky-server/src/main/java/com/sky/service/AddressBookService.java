@@ -61,4 +61,13 @@ public interface AddressBookService {
      * @return: com.sky.entity.AddressBook
      */
     void deleteAddressBookById(Long id);
+
+    /**
+     *
+     * @description:
+     * @author: Cvvvv
+     * @param: []
+     * @return: com.sky.entity.AddressBook
+     */
+    AddressBook showDefaultAddress();
 }

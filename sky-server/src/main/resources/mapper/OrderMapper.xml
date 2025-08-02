@@ -4,7 +4,7 @@
 <mapper namespace="com.sky.mapper.OrderMapper">
 
 
-
+    <!--新增订单-->
     <insert id="addOrder" parameterType="Orders" useGeneratedKeys="true" keyProperty="id">
         insert into orders
         (number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status, amount, remark,
@@ -15,6 +15,9 @@
                 #{estimatedDeliveryTime}, #{deliveryStatus}, #{packAmount}, #{tablewareNumber}, #{tablewareStatus})
 
     </insert>
+
+
+    <!--根据订单id修改订单信息-->
     <update id="updateOrderInformation" parameterType="com.sky.entity.Orders">
         update orders
         <set>
@@ -45,6 +48,16 @@
         </set>
         where id = #{id}
     </update>
+
+
+    <!--根据用户id查询用户订单-->
+    <select id="queryOrdersByUserId" resultType="com.sky.vo.OrderVO">
+        select id, number, status, user_id, address_book_id, order_time, checkout_time, pay_method, pay_status, amount, remark, phone, address, user_name, consignee, cancel_reason, rejection_reason, cancel_time, estimated_delivery_time, delivery_status, delivery_time, pack_amount, tableware_number, tableware_status
+        from orders
+        where user_id = #{userId}
+        <if test="status != null">and status = #{status}</if>
+        order by order_time desc
+    </select>
 
 
 </mapper>

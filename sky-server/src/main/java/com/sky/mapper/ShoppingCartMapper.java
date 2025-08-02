@@ -55,11 +55,19 @@ public interface ShoppingCartMapper {
 
     /**
      *
-     * @description:根据用户Id删除购物车中的数据
+     * @description:根据购物车id删除当前用户购物车中的数据，如果id为空，则删除所有数据
      * @author: Cvvvv
      * @param: [shoppingCart]
      * @return: void
      */
-    @Delete("delete from shopping_cart where user_id = #{userId}")
-    void deleteShoppingCart(Long userId);
+    void deleteShoppingCart(ShoppingCart shoppingCart);
+
+    /**
+     *
+     * @description:批量添加购物车数据
+     * @author: Cvvvv
+     * @param: [shoppingCartList]
+     * @return: void
+     */
+    void insertBatch(List<ShoppingCart> shoppingCartList);
 }

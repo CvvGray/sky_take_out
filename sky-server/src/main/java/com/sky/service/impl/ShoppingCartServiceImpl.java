@@ -7,6 +7,7 @@ import com.sky.dto.ShoppingCartDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.Setmeal;
 import com.sky.entity.ShoppingCart;
+import com.sky.exception.ShoppingCartBusinessException;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetMealMapper;
 import com.sky.mapper.ShoppingCartMapper;
@@ -113,9 +114,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         List<ShoppingCart> shoppingCarts = shoppingCartMapper.queryShoppingCartDishOrSetmeal(shoppingCart);
         shoppingCart = shoppingCarts.get(0);
-        shoppingCart.setNumber(shoppingCart.getNumber() - 1);
+        if (shoppingCart == null){
+            throw new ShoppingCartBusinessException("购物车数据异常");
+        }
 
-        shoppingCartMapper.updateNumberById(shoppingCart);
+        shoppingCart.setNumber( shoppingCart.getNumber() - 1);
+        if(shoppingCart.getNumber() - 1  <= 0 ){
+            shoppingCartMapper.deleteShoppingCart(shoppingCart);
+        }else {
+            shoppingCartMapper.updateNumberById(shoppingCart);
+        }
+
     }
 
 
@@ -128,6 +137,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public void cleanShoppingCart() {
-        shoppingCartMapper.deleteShoppingCart(BaseContext.getCurrentId());
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        shoppingCartMapper.deleteShoppingCart(shoppingCart);
     }
 }
