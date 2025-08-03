@@ -1,11 +1,13 @@
 package com.sky.service;
 
 import cn.hutool.db.sql.Order;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
 import com.sky.entity.Orders;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+
+import java.util.List;
 
 public interface OrderService {
 
@@ -68,5 +70,50 @@ public interface OrderService {
      * @param: [id]
      * @return: void
      */
-    void cancelOrder(Long id);
+    void cancelOrder(OrdersCancelDTO ordersCancelDTO);
+
+    /**
+     *
+     * @description:订单分页查询
+     * @author: Cvvvv
+     * @param: [pageQueryDTO]
+     * @return: com.sky.result.PageResult<java.util.List<com.sky.vo.OrderVO>>
+     */
+    PageResult<OrderVO> pageQueryOrder(OrdersPageQueryDTO pageQueryDTO);
+
+    /**
+     *
+     * @description:接单
+     * @author: Cvvvv
+     * @param: [ordersDTO]
+     * @return: void
+     */
+    void confirmOrder(OrdersDTO ordersDTO);
+
+    /**
+     *
+     * @description:派送订单
+     * @author: Cvvvv
+     * @param: [ordersDTO]
+     * @return: void
+     */
+    void deliveryOrder(OrdersDTO ordersDTO);
+
+    /**
+     *
+     * @description:完成订单
+     * @author: Cvvvv
+     * @param: [ordersDTO]
+     * @return: void
+     */
+    void completeOrder(OrdersDTO ordersDTO);
+
+    /**
+     *
+     * @description:拒单
+     * @author: Cvvvv
+     * @param: [ordersRejectionDTO]
+     * @return: void
+     */
+    void rejectionOrder(OrdersRejectionDTO ordersRejectionDTO);
 }

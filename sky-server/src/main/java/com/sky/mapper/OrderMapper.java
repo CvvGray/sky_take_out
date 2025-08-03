@@ -76,4 +76,13 @@ public interface OrderMapper {
      * @return: com.github.pagehelper.Page<com.sky.vo.OrderVO>
      */
     Page<OrderVO> queryOrdersByUserId(OrdersPageQueryDTO orderDto);
+
+    /**
+     *
+     * @description:根据条件分页查询订单数据，number,phone,status,beginTime,endTime
+     * @author: Cvvvv
+     * @param: [pageQueryDTO]
+     * @return: com.github.pagehelper.Page<com.sky.vo.OrderVO>
+     */
+    Page<OrderVO> queryOrderByCondition(OrdersPageQueryDTO pageQueryDTO);
 }

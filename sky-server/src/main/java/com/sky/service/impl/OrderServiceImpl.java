@@ -9,8 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.NoticeConstant;
 import com.sky.context.BaseContext;
-import com.sky.dto.OrdersPageQueryDTO;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
 import com.sky.entity.*;
 import com.sky.exception.AddressBookBusinessException;
 import com.sky.exception.BaseException;
@@ -293,8 +292,8 @@ public class OrderServiceImpl implements OrderService {
      * @return: void
      */
     @Override
-    public void cancelOrder(Long id) {
-        Orders order = orderMapper.queryOrderById(id);
+    public void cancelOrder(OrdersCancelDTO ordersCancelDTO) {
+        Orders order = orderMapper.queryOrderById(ordersCancelDTO.getId());
         if (order == null) {
             throw new BaseException("未知错误");
         }
@@ -307,11 +306,133 @@ public class OrderServiceImpl implements OrderService {
             order.setCancelTime(LocalDateTime.now());
             order.setCancelReason("用户需要退款");
         }else{
+            // 用户未支付，需要退款
             order.setStatus(Orders.CANCELLED);
             order.setCancelTime(LocalDateTime.now());
-            order.setCancelReason("用户取消订单");
+            order.setCancelReason(ordersCancelDTO.getCancelReason());
         }
 
         orderMapper.updateOrderInformation(order);
+    }
+
+
+   /**
+    *
+    * @description:订单分页查询
+    * @author: Cvvvv
+    * @param: [pageQueryDTO]
+    * @return: com.sky.result.PageResult<com.sky.vo.OrderVO>
+    */
+    @Override
+    public PageResult<OrderVO> pageQueryOrder(OrdersPageQueryDTO pageQueryDTO) {
+        PageHelper.startPage(pageQueryDTO.getPage(), pageQueryDTO.getPageSize());
+        pageQueryDTO.setUserId(BaseContext.getCurrentId());
+
+        Page<OrderVO> orderList = orderMapper.queryOrderByCondition(pageQueryDTO);
+
+        long total = orderList.getTotal();
+        List<OrderVO> records = orderList.getResult();
+
+        return new PageResult<>(total, records);
+    }
+
+
+    /**
+     *
+     * @description:接单
+     * @author: Cvvvv
+     * @param: [ordersDTO]
+     * @return: void
+     */
+    @Override
+    public void confirmOrder(OrdersDTO ordersDTO) {
+        // 根据id查询订单
+        Orders ordersDB = orderMapper.queryOrderById(ordersDTO.getId());
+
+        // 订单只有存在且状态为2（待接单）才可以接单
+        if (ordersDB == null || !ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        Orders orders = new Orders();
+        BeanUtils.copyProperties(ordersDTO, orders);
+        orders.setStatus(Orders.CONFIRMED);
+        orderMapper.updateOrderInformation(orders);
+
+    }
+
+
+    /**
+     *
+     * @description:派送订单
+     * @author: Cvvvv
+     * @param: [ordersDTO]
+     * @return: void
+     */
+    @Override
+    public void deliveryOrder(OrdersDTO ordersDTO) {
+        // 根据id查询订单
+        Orders ordersDB = orderMapper.queryOrderById(ordersDTO.getId());
+
+        // 订单只有存在且状态为3（已接单）才可以派送订单
+        if (ordersDB == null || !ordersDB.getStatus().equals(Orders.CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        Orders orders = new Orders();
+        BeanUtils.copyProperties(ordersDTO, orders);
+        orders.setStatus(Orders.DELIVERY_IN_PROGRESS);
+        orderMapper.updateOrderInformation(orders);
+    }
+
+    /**
+     *
+     * @description:完成订单
+     * @author: Cvvvv
+     * @param: [ordersDTO]
+     * @return: void
+     */
+    @Override
+    public void completeOrder(OrdersDTO ordersDTO) {
+        // 根据id查询订单
+        Orders ordersDB = orderMapper.queryOrderById(ordersDTO.getId());
+
+        // 订单只有存在且状态为4（派送中）才可以完成订单
+        if (ordersDB == null || !ordersDB.getStatus().equals(Orders.DELIVERY_IN_PROGRESS)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        Orders orders = new Orders();
+        BeanUtils.copyProperties(ordersDTO, orders);
+        orders.setStatus(Orders.COMPLETED);
+        orderMapper.updateOrderInformation(orders);
+    }
+
+
+    /**
+     *
+     * @description:拒单
+     * @author: Cvvvv
+     * @param: [ordersRejectionDTO]
+     * @return: void
+     */
+    @Override
+    public void rejectionOrder(OrdersRejectionDTO ordersRejectionDTO) {
+        // 根据id查询订单
+        Orders ordersDB = orderMapper.queryOrderById(ordersRejectionDTO.getId());
+
+        // 订单只有存在且状态为2（待接单）才可以拒单
+        if (ordersDB == null || !ordersDB.getStatus().equals(Orders.TO_BE_CONFIRMED)) {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+
+        // 拒单需要退款，根据订单id更新订单状态、拒单原因、取消时间
+        Orders orders = new Orders();
+        orders.setId(ordersDB.getId());
+        orders.setStatus(Orders.CANCELLED);
+        orders.setRejectionReason(ordersRejectionDTO.getRejectionReason());
+        orders.setCancelTime(LocalDateTime.now());
+
+        orderMapper.updateOrderInformation(orders);
+
     }
 }
