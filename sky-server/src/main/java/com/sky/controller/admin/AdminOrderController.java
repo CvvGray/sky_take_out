@@ -8,6 +8,7 @@ import com.sky.dto.OrdersRejectionDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.OrderService;
+import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -118,7 +119,18 @@ public class AdminOrderController {
     }
 
 
-
+   /**
+    *
+    * @description:各个状态的订单数量统计
+    * @author: Cvvvv
+    * @param: []
+    * @return: com.sky.result.Result<com.sky.vo.OrderStatisticsVO>
+    */
+    @GetMapping("/statistics")
+    public Result<OrderStatisticsVO> statistics() {
+        OrderStatisticsVO orderStatisticsVO = orderService.statisticsOrder();
+        return Result.success(orderStatisticsVO);
+    }
 
 
 

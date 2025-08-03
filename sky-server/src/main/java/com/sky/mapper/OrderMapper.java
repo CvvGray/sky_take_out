@@ -85,4 +85,14 @@ public interface OrderMapper {
      * @return: com.github.pagehelper.Page<com.sky.vo.OrderVO>
      */
     Page<OrderVO> queryOrderByCondition(OrdersPageQueryDTO pageQueryDTO);
+
+    /**
+     *
+     * @description根据订单状态统计数据
+     * @author: Cvvvv
+     * @param: [toBeConfirmed]
+     * @return: java.lang.Integer
+     */
+    @Select("select count(*) from orders where status = #{toBeConfirmed}")
+    Integer countStatus(Integer toBeConfirmed);
 }
