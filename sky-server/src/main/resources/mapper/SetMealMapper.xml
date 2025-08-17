@@ -3,6 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.SetMealMapper">
 
+
+
+    <!--根据条件查询套餐数据-->
     <select id="querySetMeal" resultType="com.sky.entity.Setmeal">
         select id,name,price,status,category_id,image,description,create_time,create_user,update_time,update_user
         from setmeal
@@ -13,4 +16,35 @@
             <if test="categoryId != null">and category_id = #{categoryId}</if>
         </where>
     </select>
+
+
+
+    <!--分页查询套餐数据-->
+    <select id="pageQuerySetMeal" resultType="com.sky.entity.Setmeal">
+        select id,category_id,name,price,status,description,image,update_time,create_time from setmeal
+        <where>
+            <if test="name != null and name != ''">and name like concat("%",#{name},"%")</if>
+            <if test="categoryId != null">and category_id = #{categoryId}</if>
+            <if test="status != null">and status = #{status}</if>
+        </where>
+        order by create_time desc
+
+    </select>
+    <!--根据id批量查询表中数据-->
+    <select id="querySetMealByIds" resultType="com.sky.entity.Setmeal">
+        select name,status from setmeal where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </select>
+
+    <!--根据id批量删除套餐表中数据-->
+    <delete id="deleteSetMealByIds">
+        delete from setmeal where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>

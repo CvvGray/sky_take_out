@@ -2,10 +2,12 @@ package com.sky.controller.admin;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.entity.Dish;
 import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
+import com.sky.service.CategoryService;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
@@ -25,8 +27,6 @@ public class DishController {
 
     @Autowired
     private DishService dishService;
-    @Autowired
-    private DishMapper dishMapper;
 
 
     /**
@@ -114,6 +114,13 @@ public class DishController {
 
 
 
+    /**
+     *
+     * @description:修改菜品信息
+     * @author: Cvvvv
+     * @param: [dishDTO]
+     * @return: com.sky.result.Result
+     */
     @PutMapping
     @ApiOperation("修改菜品信息")
     public Result updateDishInformation(@RequestBody DishDTO dishDTO){
@@ -122,5 +129,22 @@ public class DishController {
 
         return Result.success();
     }
+
+
+    /**
+     *
+     * @description:根据分类id，展示菜品信息
+     * @author: Cvvvv
+     * @param: [category]
+     * @return: com.sky.result.Result<java.util.List>
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List> showDish(DishDTO dishDTO){
+        log.info("根据分类id查询查询菜品：{}", dishDTO.getCategoryId());
+        List<DishVO> dishList = dishService.queryDishByCategoryId(dishDTO.getCategoryId());
+        return Result.success(dishList);
+    }
+
 
 }

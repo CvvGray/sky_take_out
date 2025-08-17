@@ -82,6 +82,8 @@ public class CategoryController {
 
     }
 
+
+
     /**
      *
      * @description:根据id删除分类
@@ -97,6 +99,7 @@ public class CategoryController {
         categoryService.deleteCategoryById(id);
         return Result.success();
     }
+
 
 
     /**
@@ -116,6 +119,8 @@ public class CategoryController {
 
     }
 
+
+
    /**
     *
     * @description:根据类型查询分类
@@ -127,6 +132,7 @@ public class CategoryController {
     @GetMapping("/list")
     @ApiOperation("根据类型查询分类")
     public Result<List<Category>> list(Integer type){
+        log.info("根据类型查询分类,{}",type);
         List<Category> list = categoryService.queryCategoryByType(type);
         return Result.success(list);
     }
