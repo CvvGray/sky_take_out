@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import com.sky.vo.OrderVO;
@@ -8,8 +9,10 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -95,4 +98,33 @@ public interface OrderMapper {
      */
     @Select("select count(*) from orders where status = #{toBeConfirmed}")
     Integer countStatus(Integer toBeConfirmed);
+
+    /**
+     *
+     * @description:根基日期计算营业额。
+     * @author: Cvvvv
+     * @param: [map]
+     * @return: java.lang.Double
+     */
+    Double sumByMap(Map map);
+
+
+    /**
+     *
+     * @description:查询每天的总订单数
+     * @author: Cvvvv
+     * @param: [beginTime, endTime, o]
+     * @return: java.lang.Integer
+     */
+    Integer getOrderCount(LocalDateTime beginTime, LocalDateTime endTime, Integer status);
+
+
+    /**
+     *
+     * @description:根据日期，查询销量top10的菜品名称
+     * @author: Cvvvv
+     * @param: [beginTime, endTime]
+     * @return: java.util.List<com.sky.dto.GoodsSalesDTO>
+     */
+    List<GoodsSalesDTO> getSalesTop10(LocalDateTime beginTime, LocalDateTime endTime);
 }
